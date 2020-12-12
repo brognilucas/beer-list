@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Box from "@material-ui/core/Box";
@@ -17,36 +17,30 @@ export default function Menu() {
   const classes = useStyles();
   const history = useHistory();
 
-  useEffect(() => { 
-
-  }, [history])
-
   function create() {
     history.push("/create");
   }
 
-  console.log({ history });
+  function listMyOwnBeers() {
+    history.push("/my-beers");
+  }
+
+  function listOthersBeers() {
+    history.push("/");
+  }
 
   return (
     <Box className={classes.content}>
       <ButtonGroup variant="text" aria-label="text primary button group">
-        <Button
-          onClick={() => history.push("/my-beers")}
-          color={
-            history.location.pathname === "/my-beers" ? "primary" : "inherit"
-          }
-        >
+        <Button id="my-beers-btn" onClick={listMyOwnBeers}>
           My Beers
         </Button>
-        <Button
-          onClick={() => history.push("/")}
-          color={history.location.pathname === "/" ? "primary" : "inherit"}
-        >
+        <Button id="other-beers-btn" onClick={listOthersBeers}>
           Other's Beers
         </Button>
       </ButtonGroup>
 
-      <Button onClick={create}>
+      <Button id="create-btn" onClick={create}>
         <CreateIcon />
         Create Own Beer
       </Button>

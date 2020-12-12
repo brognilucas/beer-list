@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import LoadingBar from "react-top-loading-bar";
 import { useParams } from "react-router-dom";
-import { MyBeers } from "../context/MyBeers";
-import services from "../services";
+import { MyBeers } from "../../context/MyBeers";
+import services from "../../services";
 import DetailBeer from "./Detail";
 
 const DetailPage = () => {
-  const [beers] = useContext(MyBeers);
+  const { getBeerById } = useContext(MyBeers);
   const [beer, setBeer] = useState(null);
   const [loading, setLoading] = useState(true);
   const loaderRef = useRef(null);
@@ -19,20 +19,23 @@ const DetailPage = () => {
 
   async function getBeer() {
     setLoading(true);
-    let beer = beers.find((beer) => beer.id === id);
-    if (!beer) {
+
+    let contextBeer = getBeerById(id);
+
+    if (!contextBeer) {
       try {
         const { data } = await getBeerApi();
-        beer = data.data;
+        setBeer(data.data);
       } catch (error) {
-        beer = null;
+        setBeer(null);
       }
+    } else {
+      setBeer(contextBeer);
     }
-    setBeer(beer);
 
     setLoading(false);
   }
-  
+
   useEffect(() => {
     if (loading) {
       loaderRef.current.continuousStart(10, 20);

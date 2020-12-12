@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function BeerListItem({ beer }) {
   const classes = useStyles();
   return (
@@ -78,23 +77,27 @@ function BeerListItem({ beer }) {
             title={beer.name}
           />
         </Box>
-        <Box className={classes.beerInfo}>
+        <Box id="beer-info" className={classes.beerInfo}>
           <Typography
+            id="beer-name"
             component={Link}
             to={`/beers/detail/${beer.id}`}
             variant="subtitle1"
           >
             {beer.name}
           </Typography>
-          <Typography variant="subtitle2">
-            Category: {beer.style?.category?.name}
+          <Typography id="beer-category" variant="subtitle2">
+            Category: {beer.style?.category?.name || "No Category Informed"}
           </Typography>
 
-          <Typography variant="subtitle2">
+          <Typography id="beer-style" variant="subtitle2">
             Style: {beer?.style?.name || "No Style Informed"}
           </Typography>
-          <Typography variant="subtitle1" className={classes.summary}>
-            {" "}
+          <Typography
+            id="beer-description"
+            variant="subtitle1"
+            className={classes.summary}
+          >
             {beer.description ||
               beer?.style?.description ||
               "No Description Found "}

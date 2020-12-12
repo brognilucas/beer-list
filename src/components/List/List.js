@@ -32,7 +32,7 @@ export default function BeerList({
   return (
     <List>
       {beers.map((beer) => (
-        <ListItem key={beer.id}>
+        <ListItem aria-label='beer-item' key={beer.id}>
           <BeerListItem beer={beer} />
         </ListItem>
       ))}

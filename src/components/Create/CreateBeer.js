@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
@@ -6,9 +6,9 @@ import TextField from "@material-ui/core/TextField";
 import { Container, Typography, Box } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Input, InputLabel } from "@material-ui/core";
-import { MyBeers, getRandomId } from "../context/MyBeers";
+import { MyBeers, getRandomId } from "../../context/MyBeers";
 import { useHistory } from "react-router-dom";
-import service from "../services/";
+import service from "../../services";
 
 const validationSchema = yup.object({
   name: yup
@@ -19,34 +19,8 @@ const validationSchema = yup.object({
     .required("Description of beer is requried"),
 });
 
-const CreateBeer = () => {
-  const history = useHistory();
-  const [categories, setCategories] = useState([]);
-  const [beers, setBeers] = useContext(MyBeers);
-
-  useEffect(() => {
-    getCategories();
-  }, []);
-
-  async function getCategories() {
-    const { data } = await service.get("categories");
-
-    setCategories(data.data);
-  }
-
-  function createBeer(beer) {
-    Object.assign(beer, {
-      id: getRandomId(),
-    });
-    setBeers([...beers, beer]);
-
-    goToHomePage();
-  }
-
-  function goToHomePage() {
-    history.push("/my-beers");
-  }
-
+const CreateBeer = ({ submit , categories }) => {
+ 
   const getBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -73,8 +47,8 @@ const CreateBeer = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      createBeer(values);
-    },
+      submit(values);
+    }
   });
 
   return (
@@ -86,7 +60,6 @@ const CreateBeer = () => {
           alignItems: "flex-start",
         }}
       >
-        <Button onClick={goToHomePage}>Back</Button>
         <Typography align="left" variant="h5" color="textSecondary">
           Create Your Beer
         </Typography>

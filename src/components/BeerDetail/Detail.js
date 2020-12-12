@@ -71,7 +71,7 @@ function DetailBeer({ beer }) {
   const classes = useStyles();
 
   if (!beer) {
-    return <div>Beer not found </div>;
+    return <div id="not-found">Beer not found </div>;
   }
 
   function getIngredients({ ingredients }) {
@@ -100,9 +100,9 @@ function DetailBeer({ beer }) {
           />
         </Box>
         <Box className={classes.beerInfo}>
-          <Box>
+          <Box id="beer-info">
             <Typography align="left" variant="h5">
-              Name: {beer.name}
+              {beer.name}
             </Typography>
             <Typography
               style={{ marginTop: "1em" }}
@@ -113,60 +113,69 @@ function DetailBeer({ beer }) {
               {beer.description || "No Description Found "}
             </Typography>
           </Box>
-          <Typography style={{ marginTop: "1em" }} variant="h6">
-            Style
-          </Typography>
-
-          <Typography align="left" variant="subtitle1">
-            Style: {beer.style?.name || "Style not informed"}
-          </Typography>
-          {beer.style?.shortName && (
-            <Typography align="left" variant="subtitle1">
-              Style short name: {beer.style?.shortName}
+          <Box id="style-info">
+            <Typography style={{ marginTop: "1em" }} variant="h6">
+              Style
             </Typography>
-          )}
-          <Typography
-            style={{ marginTop: "1em" }}
-            variant="subtitle1"
-            className={classes.text}
-          >
-            {beer?.style?.description || "No Description of Style Found "}
-          </Typography>
 
-          <Typography style={{ marginTop: "1em" }} variant="h6">
-            Category
-          </Typography>
-          <Typography variant="subtitle2">
-            {beer.style?.category?.name || "Category not informed"}
-          </Typography>
-
-          <Typography style={{ marginTop: "1em" }} variant="h6">
-            Additional Info
-          </Typography>
-
-          {beer.year && (
-            <Typography variant="subtitle2">Vintage in {beer.year}</Typography>
-          )}
-
-          {beer.isOrganic && (
+            <Typography align="left" variant="subtitle1">
+              Style: {beer.style?.name || "Style not informed"}
+            </Typography>
+            {beer.style?.shortName && (
+              <Typography align="left" variant="subtitle1">
+                Style short name: {beer.style?.shortName}
+              </Typography>
+            )}
             <Typography
+              style={{ marginTop: "1em" }}
               variant="subtitle1"
               className={classes.text}
-              style={{ marginTop: "1em" }}
             >
-              Organic: {beer.isOrganic === "N" ? "No" : "Yes"}
+              {beer?.style?.description || "No Description of Style Found "}
             </Typography>
-          )}
-          {beer.isRetired && (
-            <Typography className={classes.text} style={{ marginTop: "1em" }}>
-              Still being produced: {beer.isRetired === "N" ? "Yes" : "No"}
+          </Box>
+          <Box id="category-info">
+            <Typography style={{ marginTop: "1em" }} variant="h6">
+              Category
             </Typography>
-          )}
-          <Typography style={{ marginTop: "1em" }} variant="h6">
-            Ingredients
-          </Typography>
+            <Typography variant="subtitle2">
+              {beer.style?.category?.name || "Category not informed"}
+            </Typography>
+          </Box>
+          <Box id="additional-info">
+            <Typography style={{ marginTop: "1em" }} variant="h6">
+              Additional Info
+            </Typography>
 
-          {beer.ingredients && <div> {getIngredients(beer)} </div>}
+            {beer.year && (
+              <Typography variant="subtitle2">
+                Vintage in {beer.year}
+              </Typography>
+            )}
+
+            {beer.isOrganic && (
+              <Typography
+                variant="subtitle1"
+                className={classes.text}
+                style={{ marginTop: "1em" }}
+              >
+                Organic: {beer.isOrganic === "N" ? "No" : "Yes"}
+              </Typography>
+            )}
+            {beer.isRetired && (
+              <Typography className={classes.text} style={{ marginTop: "1em" }}>
+                Still being produced: {beer.isRetired === "N" ? "Yes" : "No"}
+              </Typography>
+            )}
+          </Box>
+          {beer.ingredients && (
+            <Box  id="ingredients-info">
+              <Typography style={{ marginTop: "1em" }} variant="h6">
+                Ingredients
+              </Typography>
+              <Typography> {getIngredients(beer)} </Typography>
+            </Box>
+          )}
         </Box>
       </Box>
     </Container>
