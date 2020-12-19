@@ -1,0 +1,98 @@
+<ngx-datatable
+  #table
+  class="material striped"
+  [rows]="beers"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  rowHeight="auto"
+  [externalPaging]="true"
+  [count]="pagination.totalResults"
+  [offset]="pagination.currentPage - 1"
+  [limit]="pagination.pageSize || 50"
+  [columnMode]="ColumnMode.force"
+  [loadingIndicator]="loading"
+>
+  <!-- Row Detail Template -->
+  <ngx-datatable-row-detail [rowHeight]="600" #rowDetail>
+    <ng-template
+      let-row="row"
+      let-expanded="expanded"
+      ngx-datatable-row-detail-template
+    >
+      <div class="detail">
+        <div class="detail-item">
+          <div><strong>Description</strong></div>
+          <div>
+            {{ row.description || "No description informed to this beer" }}
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div><strong>Style Description</strong></div>
+          <div>
+            {{
+              row.style?.description ||
+                "No description informed to this style of beer"
+            }}
+          </div>
+        </div>
+
+        <div class="detail-item" *ngIf="row.breweries">
+          <div><strong>Breweries</strong></div>
+          <div>{{ getBreweries(row) }}</div>
+        </div>
+
+        <div class="detail-item" *ngIf="row.ingredients">
+          <div><strong>Ingredients</strong></div>
+          <div>{{ getIngredients(row) }}</div>
+        </div>
+      </div>
+    </ng-template>
+  </ngx-datatable-row-detail>
+
+  <ngx-datatable-column
+    [width]="50"
+    [resizeable]="false"
+    [sortable]="false"
+    [draggable]="false"
+    [canAutoResize]="false"
+  >
+    <ng-template
+      let-row="row"
+      let-expanded="expanded"
+      ngx-datatable-cell-template
+    >
+      <a
+        href="javascript:void(0)"
+        [class.datatable-icon-right]="!expanded"
+        [class.datatable-icon-down]="expanded"
+        title="Expand/Collapse Row"
+        (click)="toggleExpandRow(row)"
+      >
+      </a>
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Name" prop="name"> </ngx-datatable-column>
+
+  <ngx-datatable-column name="Retired" prop="isRetired">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.isRetired === "N" ? "No" : "Yes" }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Organic" prop="isOrganic">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.isOrganic === "N" ? "No" : "Yes" }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Style" prop="style">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.style?.name || "Style not informed" }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Category" prop="category">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.style?.category?.name || "Category not informed" }}
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>

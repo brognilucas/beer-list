@@ -1,0 +1,76 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Beer name</mat-label>
+    <input matInput formControlName="name" required />
+    <mat-error *ngIf="form.get('name').invalid && form.get('name').touched"
+      >Name is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" required></textarea>
+    <mat-error
+      *ngIf="form.get('description').invalid && form.get('description').touched"
+      >Description is required</mat-error
+    >
+  </mat-form-field>
+
+  <div [formGroup]="form.get('style')">
+    <h3>Style</h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <h3>Category</h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category">{{
+          category.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <h3>Ingredients</h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Ingredients</mat-label>
+    <mat-select formControlName="ingredients" multiple>
+      <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">{{
+        ingredient.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <h3>Breweries</h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Breweries</mat-label>
+    <mat-select formControlName="breweries" multiple>
+      <mat-option *ngFor="let brewery of breweries" [value]="brewery">{{
+        brewery.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="checkboxes">
+    <mat-checkbox formControlName="isRetired">Retired</mat-checkbox>
+    <mat-checkbox formControlName="isOrganic">Organic</mat-checkbox>
+  </div>
+
+  <button
+    [disabled]="!form.valid"
+    type="submit"
+    mat-raised-button
+    color="primary"
+  >
+    Save
+  </button>
+</form>
