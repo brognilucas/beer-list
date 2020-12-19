@@ -11,6 +11,7 @@
   [limit]="pagination.pageSize || 50"
   [columnMode]="ColumnMode.force"
   [loadingIndicator]="loading"
+  (page)="paginate.emit($event)"
 >
   <!-- Row Detail Template -->
   <ngx-datatable-row-detail [rowHeight]="600" #rowDetail>

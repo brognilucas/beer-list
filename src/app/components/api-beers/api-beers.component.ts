@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { throwToolbarMixedModesError } from "@angular/material/toolbar";
 import { BreweryService } from "src/app/services/brewery.service";
 
 @Component({
@@ -34,5 +35,14 @@ export class ApiBeersComponent implements OnInit {
 
         this.loading = false;
       });
+  }
+
+  paginate($event) {
+    this.pagination = {
+      ...this.pagination,
+      currentPage: this.pagination.currentPage + 1,
+    };
+
+    this.getBeers();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { ColumnMode } from "@swimlane/ngx-datatable";
 
 @Component({
@@ -17,6 +17,8 @@ export class BeerListTableComponent {
   @Input() loading: boolean;
   @Input() pagination: any = {};
   expanded: any = {};
+
+  @Output() paginate: EventEmitter<any> = new EventEmitter();
 
   toggleExpandRow(row) {
     this.table.rowDetail.toggleExpandRow(row);
