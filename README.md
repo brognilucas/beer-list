@@ -1,27 +1,16 @@
-# BeerList
+### Project 
+That's show a list of beers retrieved from brewerydb API and allow you to create your own beer 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
 
-## Development server
+### Architecture
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The project was built using the Angular 10 using material ui to create the UI and Reactive Forms to manage the form. 
+The tests were wroten using Karma and Jasmine. 
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Running and Testing 
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- Clone the project
+- Run the `npm install` or `yarn` command 
+- To run the tests run the `npm test` command 
+- To start the application run the `npm start` command
